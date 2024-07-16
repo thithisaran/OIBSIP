@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temp Converter</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background-image: url("https://www.calculator.land/wp-content/uploads/2022/12/temperature-converter-schema.jpg"); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+    font-family: Arial, sans-serif,italian;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(201, 88, 88);
+    color: rgb(29, 28, 30);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #201e1e;
+    border-radius: 8px;
+    background-color: rgb(160, 37, 138);
+  }
+  
+  .input-container {
+    margin-bottom: 10px;
+  }
+  
+  .options-container {
+    margin-bottom: 10px;
+  }
+  
+  .conversion-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  label {
+    margin-right: 10px;
+  }
+  
+  button {
+    background-color: rgb(218, 24, 218);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .result-container {
+    margin-top: 20px;
+  }
+  
+  </style>
+  <script>
+    function celsiusToFahrenheit(celsius) {
+    return (celsius * 9 / 5) + 32;
+  }
+  
+  function fahrenheitToCelsius(fahrenheit) {
+    return (fahrenheit - 32) * 5 / 9;
+  }
+  
+  function celsiusToKelvin(celsius) {
+    return celsius + 273.15;
+  }
+  
+  function kelvinToCelsius(kelvin) {
+    return kelvin - 273.15;
+  }
+  
+  function fahrenheitToKelvin(fahrenheit) {
+    return (fahrenheit - 32) * 5 / 9 + 273.15;
+  }
+  
+  function kelvinToFahrenheit(kelvin) {
+    return (kelvin - 273.15) * 9 / 5 + 32;
+  }
+  
+  function convertTemperature() {
+    const temperatureInput = document.getElementById('temperature');
+    const fromSelect = document.getElementById('from');
+    const toSelect = document.getElementById('to');
+    const resultContainer = document.getElementById('convertedResult');
+  
+    const temperatureValue = parseFloat(temperatureInput.value);
+  
+    if (isNaN(temperatureValue)) {
+      alert("Please enter a valid temperature.");
+      return;
+    }
+  
+    const fromUnit = fromSelect.value;
+    const toUnit = toSelect.value;
+  
+    let convertedValue;
+  
+    if (fromUnit === 'celsius') {
+      if (toUnit === 'fahrenheit') {
+        convertedValue = celsiusToFahrenheit(temperatureValue);
+      } else if (toUnit === 'kelvin') {
+        convertedValue = celsiusToKelvin(temperatureValue);
+      } else {
+        convertedValue = temperatureValue;
+      }
+    } else if (fromUnit === 'fahrenheit') {
+      if (toUnit === 'celsius') {
+        convertedValue = fahrenheitToCelsius(temperatureValue);
+      } else if (toUnit === 'kelvin') {
+        convertedValue = fahrenheitToKelvin(temperatureValue);
+      } else {
+        convertedValue = temperatureValue;
+      }
+    } else if (fromUnit === 'kelvin') {
+      if (toUnit === 'celsius') {
+        convertedValue = kelvinToCelsius(temperatureValue);
+      } else if (toUnit === 'fahrenheit') {
+        convertedValue = kelvinToFahrenheit(temperatureValue);
+      } else {
+        convertedValue = temperatureValue;
+      }
+    }
+  
+    resultContainer.textContent = `${convertedValue.toFixed(2)} ${toUnit.toUpperCase()}`;
+  }
+  
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Temp Converter</h1>
+    <div class="input-container">
+      <label for="temperature">Enter temp:</label>
+      <input type="number" id="temperature" placeholder="Enter temperature">
+    </div>
+    <div class="options-container">
+      <label for="from">From<-</label>
+      <select id="from">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+      </select>
+      <label for="to">To-></label>
+      <select id="to">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+      </select>
+    </div>
+    <button onclick="convertTemperature()">Convert</button>
+    <div class="result-container">
+      <label>Convert Temp:</label>
+      <span id="convertedResult"></span>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
